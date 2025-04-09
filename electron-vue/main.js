@@ -27,7 +27,8 @@ function createWindow() {
 }
 console.log(app);
 app.on('ready', createWindow)
-
+// needed for windows app closure 
+// darwin represents macOS
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
