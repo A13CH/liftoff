@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CalendarView from '../views/CalendarView.vue'
-import EventFeedView from '../views/EventFeedView.vue'
+import EventRegistrationView from '../views/EventRegistrationView.vue'
 
 const routes = [
   {
@@ -10,9 +10,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/event_feed',
-    name: 'event_feed',
-    component: EventFeedView
+    path: '/event_registration',
+    name: 'event_registration',
+    component: EventRegistrationView
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
