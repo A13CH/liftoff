@@ -12,7 +12,7 @@
   "dependencies": {
     "@fullcalendar/core": "^6.1.17",
     "@fullcalendar/daygrid": "^6.1.17",
-    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.17",
     "@fullcalendar/vue3": "^6.1.17",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
