@@ -23,7 +23,9 @@ export default {
   },
   methods: {
     handleDateClick: function(arg) {
-      alert('date click! ' + arg.dateStr)
+      const date = arg.date
+      const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+      alert(`date click!\nDate: ${formattedDate}`)
     },
     handleEventClick(info) {
       const date = info.event.start
