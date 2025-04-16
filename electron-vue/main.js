@@ -21,14 +21,11 @@ function createWindow() {
       slashes: true
     })
   );
-
-  mainWindow.webContents.once('dom-ready', () => {
-    mainWindow.webContents.openDevTools(); // Open DevTools once DOM is ready
-  });
-  
+  /*
   mainWindow.on('closed', function () {
     mainWindow = null
   })
+  */
 }
 console.log(app);
 app.on('ready', createWindow)
