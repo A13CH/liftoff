@@ -1,5 +1,6 @@
 <template>
   <div class="event-form">
+    <img class="logo" alt="Vue logo" src="../assets/logo.png">
     <h2>Register a Campus Event</h2>
     <form @submit.prevent="submitForm">
       <div>
@@ -179,5 +180,12 @@ button:hover {
 
 h2, h3 {
   text-align: center;
+}
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px; /* Adjust size as needed */
+  height: auto;
 }
 </style>

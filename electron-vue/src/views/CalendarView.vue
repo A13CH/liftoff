@@ -1,3 +1,13 @@
+<template>
+  <div class="header">
+    <img class="logo" alt="Vue logo" src="../assets/logo.png">
+  </div>
+  <div class="content">
+    <button @click="toggleWeekends">toggle weekends</button>
+    <FullCalendar :options="calendarOptions" />
+  </div>
+</template>
+
 <script>
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -10,7 +20,7 @@ export default {
   data() {
     return {
       calendarOptions: {
-        plugins: [ dayGridPlugin, interactionPlugin ],
+        plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         dateClick: this.handleDateClick,
         eventClick: this.handleEventClick,
@@ -22,6 +32,8 @@ export default {
     }
   },
   methods: {
+    toggleWeekends: function () {
+      this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
     handleDateClick: function(arg) {
       const date = arg.date
       const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
@@ -35,6 +47,11 @@ export default {
   }
 }
 </script>
-<template>
-  <FullCalendar :options="calendarOptions" />
-</template>
+
+<style>
+.logo {
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 10px; /* Space between logo and text */
+}
+</style>

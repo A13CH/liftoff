@@ -1,18 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img class="logo" alt="Vue logo" src="../assets/logo.png">
+    <h1>Welcome to the liftoff platform!</h1>
+    <p>This is the home page of our application which will house the event feed page.</p>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+<style>
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px; /* Adjust size as needed */
+  height: auto;
 }
-</script>
+</style>
