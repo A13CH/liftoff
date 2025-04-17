@@ -93,20 +93,21 @@ export default {
       return Object.keys(errors.value).length === 0
     }
 
-    const submitForm = () => {
-      if (validate()) {
-        submitted.value = true
-        console.log({
-          eventName: eventName.value,
-          organizer: organizer.value,
-          date: date.value,
-          time: time.value,
-          location: location.value,
-          description: description.value,
-          email: email.value
-        })
-      }
-    }
+const submitForm = async () => {
+  if (validate()) {
+    await window.require('electron').ipcRenderer.invoke('add-event', {
+      name: eventName.value,
+      organizer: organizer.value,
+      date: date.value,
+      time: time.value,
+      location: location.value,
+      description: description.value,
+      email: email.value
+    });
+    submitted.value = true;
+  }
+}
+
 
     return {
       eventName,

@@ -1,10 +1,8 @@
 <template>
   <div class="header">
     <img class="logo" alt="Vue logo" src="../assets/logo.png">
-    <span class="title">Liftoff</span>
   </div>
   <div class="content">
-    <button @click="toggleWeekends">toggle weekends</button>
     <FullCalendar :options="calendarOptions" />
   </div>
 </template>
@@ -16,24 +14,33 @@ import interactionPlugin from '@fullcalendar/interaction'
 
 export default {
   components: {
-    FullCalendar // make the <FullCalendar> tag available
+    FullCalendar
   },
   data() {
     return {
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
-        weekends: false // initial value
+        weekends: false,
+        events: [] // this will be filled from the database
       }
     }
   },
+  mounted() {
+    this.loadEvents();
+  },
   methods: {
-    toggleWeekends: function () {
-      this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
+    async loadEvents() {
+      const events = await window.require('electron').ipcRenderer.invoke('get-events');
+      this.calendarOptions.events = events.map(e => ({
+        title: e.name,
+        start: e.date
+      }));
     }
   }
 }
 </script>
+
 
 <style>
 .logo {

@@ -1,40 +1,37 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const { addEvent, getAllEvents } = require('./database');
 
-const url = require("url");
-const path = require("path");
-
-let mainWindow
+let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true, // okay for now — will update later
+      contextIsolation: false // allow direct access to ipcRenderer
     }
-  })
+  });
 
-  mainWindow.loadURL(
-    url.format({
-      pathname: path.join(__dirname, `./dist/index.html`),
-      protocol: "file:",
-      slashes: true
-    })
-  );
-  /*
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  })
-  */
+  mainWindow.loadFile(path.join(__dirname, './dist/index.html'));
 }
-console.log(app);
-app.on('ready', createWindow)
-// needed for windows app closure 
-// darwin represents macOS
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})
 
-app.on('activate', function () {
-  if (mainWindow === null) createWindow()
-})
+app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});
+
+// 🚀 IPC handlers
+ipcMain.handle('add-event', (_, event) => {
+  addEvent(event);
+});
+
+ipcMain.handle('get-events', () => {
+  return getAllEvents();
+});
