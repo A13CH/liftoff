@@ -9,19 +9,16 @@
     />
   </div>
 
-  <!-- Event Details Popup (formerly modal) -->
+  <!-- Event Details Popup -->
   <div v-if="showEvent" class="event-popup-overlay" @click="closeEvent">
     <div class="event-popup-content" @click.stop>
       <span @click="closeEvent" class="close-button">&times;</span>
       <h2>{{ selectedEvent.title }}</h2>
-      <p>{{ selectedEvent.start }}</p>
+      <p>{{ formattedDate }}</p>
       <p>{{ selectedEvent.description }}</p>
       <!-- Add more fields if needed -->
     </div>
   </div>
-
-  <!-- Example button to hide the event popup -->
-  <button @click="closeEvent">Close Event Popup</button>
 </template>
 
 <script>
@@ -43,7 +40,8 @@ export default {
         eventClick: this.onEventClick // Add event click handler
       },
       showEvent: false,  // Renamed from showModal to showEvent
-      selectedEvent: {}
+      selectedEvent: {},
+      formattedDate: ''
     }
   },
   mounted() {
@@ -56,7 +54,7 @@ export default {
         title: e.name,
         start: e.date,
         description: e.description, // Assuming you have a description field
-        id: e.id // Assuming each event has a unique ID
+        email: e.email
       }));
     },
     onEventClick(info) {
@@ -65,6 +63,15 @@ export default {
         start: info.event.startStr,
         description: info.event.extendedProps.description
       };
+      
+      // Format the start date to "Month Day, Year"
+      const formatted = new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: '2-digit',
+        year: 'numeric'
+      }).format(info.event.start);
+
+      this.formattedDate = formatted;
       this.showEvent = true;  // Show event popup
     },
     closeEvent() {
@@ -109,19 +116,5 @@ export default {
   right: 10px;
   font-size: 24px;
   cursor: pointer;
-}
-
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
 }
 </style>
