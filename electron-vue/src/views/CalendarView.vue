@@ -36,10 +36,10 @@ export default {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         weekends: false,
-        events: [], // this will be filled from the database
-        eventClick: this.onEventClick // Add event click handler
+        events: [], // filled from the database
+        eventClick: this.onEventClick 
       },
-      showEvent: false,  // Renamed from showModal to showEvent
+      showEvent: false,  
       selectedEvent: {},
       formattedDate: ''
     }
@@ -53,8 +53,8 @@ export default {
       this.calendarOptions.events = events.map(e => ({
         title: e.name,
         start: e.date,
-        description: e.description, // Assuming you have a description field
-        email: e.email
+        description: e.description, 
+        email: e.email // add email on popup? 
       }));
     },
     onEventClick(info) {
@@ -64,7 +64,7 @@ export default {
         description: info.event.extendedProps.description
       };
       
-      // Format the start date to "Month Day, Year"
+      // Format the date to Month, Date Year 
       const formatted = new Intl.DateTimeFormat('en-US', {
         month: 'long',
         day: '2-digit',
@@ -72,10 +72,10 @@ export default {
       }).format(info.event.start);
 
       this.formattedDate = formatted;
-      this.showEvent = true;  // Show event popup
+      this.showEvent = true;  // show 
     },
     closeEvent() {
-      this.showEvent = false;  // Hide the event popup
+      this.showEvent = false;  // hide 
     }
   }
 }
@@ -94,11 +94,11 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);  /* Slightly darker background */
+  background-color: rgba(0, 0, 0, 0.7);  
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;  /* Ensure it's on top */
+  z-index: 9999;  /* on top */
 }
 
 .event-popup-content {
@@ -107,7 +107,7 @@ export default {
   border-radius: 5px;
   width: 300px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Add shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* shadow */ 
 }
 
 .close-button {
